@@ -10,7 +10,7 @@ Basic usage of this module is as follows:
 
 ```hcl
 module "secret-manager" {
-  source  = "terraform-google-modules/secret-manager/google"
+  source  = "GoogleCloudPlatform/secret-manager/google"
   version = "~> 0.1"
   project_id = var.project_id
   secrets = [
