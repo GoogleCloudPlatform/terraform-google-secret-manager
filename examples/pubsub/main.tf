@@ -41,7 +41,7 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name                  = "secret-1"
+      name                  = "secret-pubsub-1"
       automatic_replication = true
       next_rotation_time    = "2024-10-02T15:01:23Z"
       rotation_period       = "31536000s"
@@ -49,7 +49,7 @@ module "secret-manager" {
     },
   ]
   topics = {
-    secret-1 = [
+    secret-pubsub-1 = [
       {
         name = google_pubsub_topic.secret.id
       }

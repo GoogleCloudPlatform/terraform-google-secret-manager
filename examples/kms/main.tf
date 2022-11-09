@@ -49,12 +49,12 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name        = "secret-1"
+      name        = "secret-kms-1"
       secret_data = "secret information"
     },
   ]
   user_managed_replication = {
-    secret-1 = [
+    secret-kms-1 = [
       {
         location     = local.region
         kms_key_name = google_kms_crypto_key.crypto_key.id

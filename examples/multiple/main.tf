@@ -54,7 +54,7 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name               = "secret-1"
+      name               = "secret-multi-1"
       next_rotation_time = "2024-10-02T15:01:23Z"
       rotation_period    = "31536000s"
       secret_data        = "my_secret"
@@ -70,7 +70,7 @@ module "secret-manager" {
     }
   ]
   user_managed_replication = {
-    secret-1 = [
+    secret-multi-1 = [
       {
         location     = "us-east1"
         kms_key_name = google_kms_crypto_key.crypto_key_east.id
@@ -88,7 +88,7 @@ module "secret-manager" {
     ]
   }
   topics = {
-    secret-1 = [
+    secret-multi-1 = [
       {
         name = google_pubsub_topic.secret_topic_1.id
       },
@@ -98,7 +98,7 @@ module "secret-manager" {
     ]
   }
   labels = {
-    secret-1 = {
+    secret-multi-1 = {
       key1 : "value1",
       key2 : "value2"
     }
