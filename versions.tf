@@ -28,6 +28,6 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/secret-manager/v0.0.1"
+    module_name = "blueprints/terraform/secret-manager/v0.1.1"
   }
 }
