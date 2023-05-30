@@ -85,3 +85,21 @@ resource "google_secret_manager_secret_version" "secret-version" {
   secret      = google_secret_manager_secret.secrets[each.value.name].id
   secret_data = each.value.secret_data
 }
+
+data "google_iam_policy" "secret_iam_policy" {
+  for_each = { for secret in var.secrets : secret.name => secret if lookup(secret, "iam_roles", null) != null }
+  dynamic "binding" {
+    for_each = lookup(each.value, "iam_roles", {})
+    content {
+      role    = "roles/secretmanager.${binding.key}"
+      members = binding.value
+    }
+  }
+}
+
+resource "google_secret_manager_secret_iam_policy" "policy" {
+  for_each    = { for secret in var.secrets : secret.name => secret if lookup(secret, "iam_roles", null) != null }
+  project     = var.project_id
+  secret_id   = google_secret_manager_secret.secrets[each.key].secret_id
+  policy_data = data.google_iam_policy.secret_iam_policy[each.key].policy_data
+}
