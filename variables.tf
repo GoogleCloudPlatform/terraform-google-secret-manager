@@ -20,7 +20,14 @@ variable "project_id" {
 }
 
 variable "secrets" {
-  type        = list(map(string))
+  type = list(object({
+    name                  = string
+    next_rotation_time    = optional(string)
+    rotation_period       = optional(string)
+    automatic_replication = optional(bool)
+    secret_data           = string
+    iam_roles             = optional(map(list(string)))
+  }))
   description = "The list of the secrets"
   default     = []
 }
