@@ -93,3 +93,25 @@ information on contributing to this module.
 ## Security Disclosures
 
 Please see our [security disclosure process](./SECURITY.md).
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| add\_kms\_permissions | The list of the crypto keys to give secret manager access to | `list(string)` | `[]` | no |
+| add\_pubsub\_permissions | The list of the pubsub topics to give secret manager access to | `list(string)` | `[]` | no |
+| labels | labels to be added for the defined secrets | `map(map(string))` | `{}` | no |
+| project\_id | The project ID to manage the Secret Manager resources | `string` | n/a | yes |
+| secrets | The list of the secrets | `list(map(string))` | `[]` | no |
+| topics | topics that will be used for defined secrets | `map(list(object({ name = string })))` | `{}` | no |
+| user\_managed\_replication | Replication parameters that will be used for defined secrets | `map(list(object({ location = string, kms_key_name = string })))` | `{}` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| secret\_names | The name list of Secrets |
+| secret\_versions | The name list of Secret Versions |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

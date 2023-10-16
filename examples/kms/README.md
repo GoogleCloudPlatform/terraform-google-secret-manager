@@ -23,3 +23,19 @@ No requirements.
 |------|-------------|
 | <a name="output_secret_names"></a> [secret\_names](#output\_secret\_names) | List of secret names |
 | <a name="output_secret_versions"></a> [secret\_versions](#output\_secret\_versions) | List of secret versions |
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| project\_id | The project ID to manage the Secret Manager resources | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| secret\_names | List of secret names |
+| secret\_versions | List of secret versions |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
