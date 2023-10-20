@@ -54,3 +54,9 @@ variable "add_pubsub_permissions" {
   description = "The list of the pubsub topics to give secret manager access to"
   default     = []
 }
+
+variable "secret_deletion_policy" {
+  type        = string
+  description = "The deletion policy for the secret version. Possible values are \"ABANDON\", \"DELETE\", and \"DISABLE\". Defaults to \"DELETE\"."
+  default     = "DELETE"
+}
