@@ -42,10 +42,10 @@ resource "google_secret_manager_secret" "secrets" {
   secret_id = each.value.name
   replication {
     dynamic "user_managed" {
-      for_each = lookup(var.user_managed_replication, each.key, null) != null ? [1] : []
+      for_each = lookup(var.user_managed_replication, each.key, null) != null ? [lookup(var.user_managed_replication, each.key, {})] : [{}]
       content {
         dynamic "replicas" {
-          for_each = lookup(var.user_managed_replication, each.key, [])
+          for_each = user_managed.value != {} ? [user_managed.value] : []
           content {
             location = replicas.value.location
             dynamic "customer_managed_encryption" {
@@ -59,6 +59,7 @@ resource "google_secret_manager_secret" "secrets" {
       }
     }
   }
+
   labels = lookup(var.labels, each.key, null)
   dynamic "topics" {
     for_each = lookup(var.topics, each.key, [])
