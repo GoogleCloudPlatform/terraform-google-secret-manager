@@ -41,7 +41,17 @@ resource "google_secret_manager_secret" "secrets" {
   for_each  = { for secret in var.secrets : secret.name => secret }
   secret_id = each.value.name
   replication {
-    auto = lookup(each.value, "automatic_replication", null) != null ? true : null
+    dynamic "auto" {
+      for_each = var.automatic_replication != null ? [1] : []
+      content {
+        dynamic "customer_managed_encryption" {
+          for_each = lookup(var.automatic_replication, "kms_key_name", null) != null ? [1] : []
+          content {
+            kms_key_name = each.value.kms_key_name
+          }
+        }
+      }
+    }
     dynamic "user_managed" {
       for_each = lookup(var.user_managed_replication, each.key, null) != null ? [1] : []
       content {

@@ -31,6 +31,12 @@ variable "user_managed_replication" {
   default     = {}
 }
 
+variable "automatic_replication" {
+  type        = map(list(object({ kms_key_name = string })))
+  description = "Atuomatic replication parameters that will be used for defined secrets"
+  default     = {}
+}
+
 variable "topics" {
   type        = map(list(object({ name = string })))
   description = "topics that will be used for defined secrets"

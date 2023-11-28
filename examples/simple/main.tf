@@ -25,7 +25,7 @@ module "secret-manager" {
     {
       name                  = "secret-1"
       secret_data           = "secret information"
-      automatic_replication = true
     },
   ]
+  automatic_replication = {}
 }
