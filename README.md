@@ -11,7 +11,7 @@ Basic usage of this module is as follows:
 ```hcl
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.1"
+  version = "~> 0.2"
   project_id = var.project_id
   secrets = [
     {
