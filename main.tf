@@ -42,7 +42,7 @@ resource "google_secret_manager_secret" "secrets" {
   secret_id = each.value.name
   replication {
     dynamic "auto" {
-      for_each = var.automatic_replication != null ? [1] : []
+      for_each = lookup(each.value, "automatic_replication", null) != null ? [1] : []
       content {
         dynamic "customer_managed_encryption" {
           for_each = lookup(var.automatic_replication, "kms_key_name", null) != null ? [1] : []
