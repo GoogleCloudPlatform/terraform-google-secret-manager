@@ -32,6 +32,7 @@ Functional examples are included in the [examples](./examples/) directory.
 |------|-------------|------|---------|:--------:|
 | add\_kms\_permissions | The list of the crypto keys to give secret manager access to | `list(string)` | `[]` | no |
 | add\_pubsub\_permissions | The list of the pubsub topics to give secret manager access to | `list(string)` | `[]` | no |
+| automatic\_replication | Atuomatic replication parameters that will be used for defined secrets | `map(list(object({ kms_key_name = string })))` | `{}` | no |
 | labels | labels to be added for the defined secrets | `map(map(string))` | `{}` | no |
 | project\_id | The project ID to manage the Secret Manager resources | `string` | n/a | yes |
 | secrets | The list of the secrets | `list(map(string))` | `[]` | no |
