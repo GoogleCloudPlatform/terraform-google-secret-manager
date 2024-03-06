@@ -34,6 +34,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | add\_pubsub\_permissions | The list of the pubsub topics to give secret manager access to | `list(string)` | `[]` | no |
 | labels | labels to be added for the defined secrets | `map(map(string))` | `{}` | no |
 | project\_id | The project ID to manage the Secret Manager resources | `string` | n/a | yes |
+| secret\_accessors\_list | The list of the members to allow accessing secret | `list(string)` | `[]` | no |
 | secrets | The list of the secrets | `list(map(string))` | `[]` | no |
 | topics | topics that will be used for defined secrets | `map(list(object({ name = string })))` | `{}` | no |
 | user\_managed\_replication | Replication parameters that will be used for defined secrets | `map(list(object({ location = string, kms_key_name = string })))` | `{}` | no |
