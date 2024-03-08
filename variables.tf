@@ -60,3 +60,9 @@ variable "add_pubsub_permissions" {
   description = "The list of the pubsub topics to give secret manager access to"
   default     = []
 }
+
+variable "secret_accessors_list" {
+  type        = list(string)
+  description = "The list of the members to allow accessing secrets"
+  default     = []
+}
