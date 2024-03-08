@@ -57,6 +57,6 @@ variable "add_pubsub_permissions" {
 
 variable "secret_accessors_list" {
   type        = list(string)
-  description = "The list of the members to allow accessing secret"
+  description = "The list of the members to allow accessing secrets"
   default     = []
 }
