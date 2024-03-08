@@ -20,7 +20,7 @@ data "google_project" "gcp_project" {
 
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   project_id = var.project_id
   secrets = [
