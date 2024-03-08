@@ -90,10 +90,9 @@ resource "google_secret_manager_secret_version" "secret-version" {
 }
 
 resource "google_secret_manager_secret_iam_binding" "binding" {
-  depends_on = [google_secret_manager_secret.secrets]
-  project    = var.project_id
-  for_each   = { for secret in var.secrets : secret.name => secret }
-  secret_id  = each.value.name
-  role       = "roles/secretmanager.secretAccessor"
-  members    = var.secret_accessors_list
+  project   = var.project_id
+  for_each  = { for secret in google_secret_manager_secret.secrets : secret.name => secret }
+  secret_id = each.value.name
+  role      = "roles/secretmanager.secretAccessor"
+  members   = var.secret_accessors_list
 }
