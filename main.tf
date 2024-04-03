@@ -98,8 +98,8 @@ resource "google_secret_manager_secret_version" "secret-version" {
 
 resource "google_secret_manager_secret_iam_binding" "binding" {
   project   = var.project_id
-  for_each  = { for secret in google_secret_manager_secret.secrets : secret.name => secret if length(var.secret_accessors_list) > 0 }
-  secret_id = each.value.name
+  for_each  = { for secret in var.secrets : secret.name => secret if length(var.secret_accessors_list) > 0 }
+  secret_id = google_secret_manager_secret.secrets[each.value.name].id
   role      = "roles/secretmanager.secretAccessor"
   members   = var.secret_accessors_list
 }
