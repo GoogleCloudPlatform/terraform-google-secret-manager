@@ -63,7 +63,6 @@ module "secret-manager" {
     },
     {
       name                  = "secret-2"
-      automatic_replication = true
       secret_data           = "my_secret2"
     },
     {
@@ -71,6 +70,9 @@ module "secret-manager" {
       secret_data = "my_secret3"
     }
   ]
+  automatic_replication = {
+    secret-2 = []
+  }
   user_managed_replication = {
     secret-multi-1 = [
       {
