@@ -32,7 +32,7 @@ variable "user_managed_replication" {
 }
 
 variable "automatic_replication" {
-  type        = map(list(object({ kms_key_name = string })))
+  type        = map(object({ kms_key_name = string }))
   description = "Automatic replication parameters that will be used for defined secrets"
   default     = {}
 }

@@ -42,12 +42,12 @@ resource "google_secret_manager_secret" "secrets" {
   secret_id = each.value.name
   replication {
     dynamic "auto" {
-      for_each = (try(var.automatic_replication, {}) != null && lookup(var.user_managed_replication, each.key, null) == null) ? [1] : []
+      for_each = lookup(var.user_managed_replication, each.key, null) == null ? [1] : []
       content {
         dynamic "customer_managed_encryption" {
-          for_each = lookup(var.automatic_replication, "kms_key_name", null) != null ? [1] : []
+          for_each = try(var.automatic_replication[each.key].kms_key_name, null) != null ? [var.automatic_replication[each.key].kms_key_name] : []
           content {
-            kms_key_name = each.value.kms_key_name
+            kms_key_name = customer_managed_encryption.value
           }
         }
       }
