@@ -43,10 +43,10 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name                  = "secret-pubsub-1"
-      next_rotation_time    = "2024-10-02T15:01:23Z"
-      rotation_period       = "31536000s"
-      secret_data           = "secret information"
+      name               = "secret-pubsub-1"
+      next_rotation_time = "2024-10-02T15:01:23Z"
+      rotation_period    = "31536000s"
+      secret_data        = "secret information"
     },
   ]
   topics = {
@@ -59,5 +59,4 @@ module "secret-manager" {
   depends_on = [
     google_pubsub_topic_iam_member.sm_sa_publisher
   ]
-  automatic_replication = {}
 }

@@ -19,7 +19,6 @@ module "secret-manager" {
       secret_data              = "secret information"
     },
   ]
-  automatic_replication = {}
 }
 ```
 

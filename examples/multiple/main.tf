@@ -62,8 +62,8 @@ module "secret-manager" {
       secret_data        = "my_secret"
     },
     {
-      name                  = "secret-2"
-      secret_data           = "my_secret2"
+      name        = "secret-2"
+      secret_data = "my_secret2"
     },
     {
       name        = "secret-3"
@@ -71,7 +71,9 @@ module "secret-manager" {
     }
   ]
   automatic_replication = {
-    secret-2 = []
+    secret-2 = {
+      kms_key_name = google_kms_crypto_key.crypto_key_east.id
+    }
   }
   user_managed_replication = {
     secret-multi-1 = [
