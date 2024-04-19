@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-data "google_project" "gcp_project" {
-  project_id = var.project_id
-}
 
-module "secret-manager" {
-  source  = "GoogleCloudPlatform/secret-manager/google"
+module "secret" {
+  source  = "GoogleCloudPlatform/secret-manager/google//modules/secret"
   version = "~> 0.3"
 
-  project_id = var.project_id
-  secrets = [
-    {
-      name        = "secret-1"
-      secret_data = "secret information"
-    },
-  ]
+  project_id  = var.project_id
+  name        = "secret-1"
+  secret_data = "secret information"
 }

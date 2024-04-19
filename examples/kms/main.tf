@@ -44,25 +44,20 @@ resource "google_kms_crypto_key_iam_member" "sm_sa_encrypter_decrypter" {
   crypto_key_id = google_kms_crypto_key.crypto_key.id
 }
 
-module "secret-manager" {
-  source  = "GoogleCloudPlatform/secret-manager/google"
+module "secret" {
+  source  = "GoogleCloudPlatform/secret-manager/google//modules/secret"
   version = "~> 0.3"
 
-  project_id = var.project_id
-  secrets = [
+  project_id  = var.project_id
+  name        = "secret-kms-1"
+  secret_data = "secret information"
+
+  user_managed_replication = [
     {
-      name        = "secret-kms-1"
-      secret_data = "secret information"
+      location     = local.region
+      kms_key_name = google_kms_crypto_key.crypto_key.id
     },
   ]
-  user_managed_replication = {
-    secret-kms-1 = [
-      {
-        location     = local.region
-        kms_key_name = google_kms_crypto_key.crypto_key.id
-      },
-    ]
-  }
 
   depends_on = [
     google_kms_crypto_key_iam_member.sm_sa_encrypter_decrypter
