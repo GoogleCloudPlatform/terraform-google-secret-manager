@@ -20,9 +20,7 @@ No providers.
 
 | Name | Description |
 |------|-------------|
-| project\_id | n/a |
-| project\_number | n/a |
-| secret\_names | List of secret names |
-| secret\_versions | List of secret versions |
+| secret\_name | Secret Name |
+| secret\_version | Secret Version |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

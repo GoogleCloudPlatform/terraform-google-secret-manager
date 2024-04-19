@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-output "secret_names" {
-  value       = module.secret-manager.secret_names
-  description = "List of secret names"
+output "secret_name" {
+  value       = module.secret.name
+  description = "Secret Name"
 }
 
-output "secret_versions" {
-  value       = module.secret-manager.secret_versions
-  description = "List of secret versions"
+output "secret_version" {
+  value       = module.secret.version
+  description = "Secret Version"
 }
-
-output "project_number" {
-  value = data.google_project.gcp_project.number
-}
-
-output "project_id" {
-  value = var.project_id
-}
-
