@@ -8,6 +8,20 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.3.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.2.0...v0.3.0) (2024-06-10)
+
+
+### Features
+
+* add support to specify secret accessors ([#66](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/66)) ([a61b2ae](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/a61b2aea5b7962a7a7ad9d7fe8d8c167ef620430))
+* Make secrets data optional ([#61](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/61)) ([5f78bea](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/5f78bea92bbd13734e3488c18e6edc973ff46bd3))
+
+
+### Bug Fixes
+
+* changed deprecated auto replication attribute ([#31](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/31)) ([6beaa66](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/6beaa663d4c4ed254fb9433664261846891f2dd5))
+* google_secret_manager_secret_iam_binding.binding for_each ([#72](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/72)) ([4494e35](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/4494e354495771294bb660f01360211ce4b3e73f))
+
 ## [0.2.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.1.1...v0.2.0) (2024-02-13)
 
 
