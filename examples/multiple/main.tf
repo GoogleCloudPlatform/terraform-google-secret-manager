@@ -123,7 +123,8 @@ module "secret-manager" {
   }
   add_kms_permissions = [
     google_kms_crypto_key.crypto_key_east.id,
-    google_kms_crypto_key.crypto_key_central.id
+    google_kms_crypto_key.crypto_key_central.id,
+    google_kms_crypto_key.crypto_key_global.id
   ]
   add_pubsub_permissions = [
     google_pubsub_topic.secret_topic_1.id,
