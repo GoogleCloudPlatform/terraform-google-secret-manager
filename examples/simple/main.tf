@@ -25,9 +25,8 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name                  = "secret-1"
-      secret_data           = "secret information"
+      name        = "secret-1"
+      secret_data = "secret information"
     },
   ]
-  automatic_replication = {}
 }

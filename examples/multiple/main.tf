@@ -17,6 +17,18 @@
 resource "random_id" "random_suffix" {
   byte_length = 2
 }
+
+resource "google_kms_key_ring" "key_ring_global" {
+  name     = "key-ring-east-${random_id.random_suffix.hex}"
+  location = "global"
+  project  = var.project_id
+}
+
+resource "google_kms_crypto_key" "crypto_key_global" {
+  name     = "crypto-key-${random_id.random_suffix.hex}"
+  key_ring = google_kms_key_ring.key_ring_global.id
+}
+
 resource "google_kms_key_ring" "key_ring_east" {
   name     = "key-ring-east-${random_id.random_suffix.hex}"
   location = "us-east1"
@@ -62,8 +74,8 @@ module "secret-manager" {
       secret_data        = "my_secret"
     },
     {
-      name                  = "secret-2"
-      secret_data           = "my_secret2"
+      name        = "secret-2"
+      secret_data = "my_secret2"
     },
     {
       name        = "secret-3"
@@ -71,7 +83,9 @@ module "secret-manager" {
     }
   ]
   automatic_replication = {
-    secret-2 = []
+    secret-2 = {
+      kms_key_name = google_kms_crypto_key.crypto_key_global.id
+    }
   }
   user_managed_replication = {
     secret-multi-1 = [
@@ -109,7 +123,8 @@ module "secret-manager" {
   }
   add_kms_permissions = [
     google_kms_crypto_key.crypto_key_east.id,
-    google_kms_crypto_key.crypto_key_central.id
+    google_kms_crypto_key.crypto_key_central.id,
+    google_kms_crypto_key.crypto_key_global.id
   ]
   add_pubsub_permissions = [
     google_pubsub_topic.secret_topic_1.id,

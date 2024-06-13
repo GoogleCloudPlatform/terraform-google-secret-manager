@@ -32,8 +32,8 @@ variable "user_managed_replication" {
 }
 
 variable "automatic_replication" {
-  type        = map(list(object({ kms_key_name = string })))
-  description = "Automatic replication parameters that will be used for defined secrets"
+  type        = map(object({ kms_key_name = string }))
+  description = "Automatic replication parameters that will be used for defined secrets. If not provided, the secret will be automatically replicated using Google-managed key without any restrictions."
   default     = {}
 }
 
