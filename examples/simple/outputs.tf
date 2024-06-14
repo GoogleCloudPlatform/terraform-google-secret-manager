@@ -23,3 +23,8 @@ output "secret_version" {
   value       = module.secret.version
   description = "Secret Version"
 }
+
+output "project_id" {
+  description = "GCP Project ID where secret was created"
+  value       = module.secret.project_id
+}
