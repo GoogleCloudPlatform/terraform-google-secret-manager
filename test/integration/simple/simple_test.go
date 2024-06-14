@@ -29,9 +29,13 @@ func TestSimpleSecret(t *testing.T) {
 	secretT.DefineVerify(func(assert *assert.Assertions) {
 		secretT.DefaultVerify(assert)
 
-		projectNUM := secretT.GetStringOutput("project_number")
-		op := gcloud.Run(t, fmt.Sprintf("secrets describe %s --project %s", "secret-1", secretT.GetStringOutput("project_id")))
-		assert.Equal(fmt.Sprintf("projects/%s/secrets/secret-1", projectNUM), op.Get("name").String(), "has expected name")
+		projectDescribe := gcloud.Run(t, fmt.Sprintf("projects describe %s", secretT.GetStringOutput("project_id")))
+		projectNUM := proj.Get("projectNumber").String()
+
+		secretDescribe := gcloud.Run(t, fmt.Sprintf("secrets describe %s --project %s", "secret-1", secretT.GetStringOutput("project_id")))
+		secretName := secretDescribe.Get("name").String()
+
+		assert.Equal(fmt.Sprintf("projects/%s/secrets/secret-1", projectNUM), secretName, "has expected name")
 	})
 	secretT.Test()
 }
