@@ -15,8 +15,8 @@
 package simple
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/tft"
@@ -30,7 +30,7 @@ func TestSimpleSecret(t *testing.T) {
 		secretT.DefaultVerify(assert)
 
 		projectDescribe := gcloud.Run(t, fmt.Sprintf("projects describe %s", secretT.GetStringOutput("project_id")))
-		projectNUM := proj.Get("projectNumber").String()
+		projectNUM := projectDescribe.Get("projectNumber").String()
 
 		secretDescribe := gcloud.Run(t, fmt.Sprintf("secrets describe %s --project %s", "secret-1", secretT.GetStringOutput("project_id")))
 		secretName := secretDescribe.Get("name").String()
