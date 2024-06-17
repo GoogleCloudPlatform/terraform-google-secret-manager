@@ -10,7 +10,7 @@ Basic usage of this module is as follows:
 ```hcl
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google//modules/secret"
-  version = "~> 0.2"
+  version = "~> 0.3"
 
   project_id  = var.project_id
   name        = "secret-1"
@@ -40,6 +40,7 @@ Functional examples are included in the [examples](./examples/) directory.
 |------|-------------|
 | id | The ID of the created secret |
 | name | The name of the created secret |
+| project\_id | GCP Project ID where secret was created |
 | version | The version of the created secret |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

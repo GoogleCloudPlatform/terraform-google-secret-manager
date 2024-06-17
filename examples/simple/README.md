@@ -20,6 +20,7 @@ No providers.
 
 | Name | Description |
 |------|-------------|
+| project\_id | GCP Project ID where secret was created |
 | secret\_name | Secret Name |
 | secret\_version | Secret Version |
 
