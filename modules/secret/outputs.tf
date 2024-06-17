@@ -14,12 +14,22 @@
  * limitations under the License.
  */
 
+output "id" {
+  description = "The ID of the created secret"
+  value       = google_secret_manager_secret.secret.id
+}
 
-module "secret" {
-  source  = "GoogleCloudPlatform/secret-manager/google//modules/secret"
-  version = "~> 0.3"
+output "name" {
+  description = "The name of the created secret"
+  value       = google_secret_manager_secret.secret.name
+}
 
-  project_id  = var.project_id
-  name        = "secret-1"
-  secret_data = "secret information"
+output "version" {
+  description = "The version of the created secret"
+  value       = google_secret_manager_secret_version.version.name
+}
+
+output "project_id" {
+  description = "GCP Project ID where secret was created"
+  value       = google_secret_manager_secret.secret.project
 }
