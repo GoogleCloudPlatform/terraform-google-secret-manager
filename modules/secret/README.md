@@ -1,6 +1,6 @@
-# terraform-google-secret-manager
+# Terraform Google Secret Manager Secret Submodule
 
-This modules makes it easy to create a single Google Secret Manager secret. It supports using custom KMS keys (CMEK) for encrypting the secrets.
+This module makes it easy to create a single Google Secret Manager secret. It supports using custom KMS keys (CMEK) for encrypting the secrets.
 It also supports secret rotation and can configure the rotation notification to be sent to given pubsub topics.
 
 ## Usage
@@ -54,7 +54,7 @@ These sections describe requirements for using this module.
 The following dependencies must be available:
 
 - [Terraform][terraform] v0.13
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.0
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin >=v4.83.0
 
 ### Service Account
 
