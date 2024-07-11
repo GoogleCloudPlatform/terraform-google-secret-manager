@@ -18,7 +18,10 @@ module "secret-manager" {
 }
 ```
 
-Functional examples are included in the [examples](./examples/) directory.
+Functional examples are included in the [examples](../examples/) directory:
+- [examples/simple](../examples/simple)
+- [examples/pubsub](../examples/pubsub)
+- [examples/kms](../examples/kms)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
