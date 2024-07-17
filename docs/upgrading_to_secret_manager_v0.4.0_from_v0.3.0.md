@@ -1,8 +1,8 @@
-# Upgrading to Secret Manager v0.4.0 from v0.3.0 
+# Upgrading to Secret Manager v0.4.0 from v0.3.0
 The v0.4.0 release is backward incompatible release.
 
 ## Impact
-Secret version creation is optional in Secret Manager module. In the release 
+Secret version creation is optional in Secret Manager module. In the release
 v0.3.0, the secret version creation was dependent on the presence of secret_data
 in the input variable.
 In the release v0.4.0, the secret version creation is dependent on the `create_version`
