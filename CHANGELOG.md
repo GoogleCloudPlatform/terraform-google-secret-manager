@@ -8,6 +8,23 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.4.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.3.0...v0.4.0) (2024-07-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* Change variable type for secrets ([#89](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/89))
+* Fix handling the CMEK with automatic replication ([#74](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/74))
+
+### Features
+
+* Change variable type for secrets ([#89](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/89)) ([468af0c](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/468af0c034b586aec31a557326d8b61d1cbb7708))
+
+
+### Bug Fixes
+
+* Fix handling the CMEK with automatic replication ([#74](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/74)) ([311a73f](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/311a73f34b8a7e855366024289031a9cef80bf04))
+
 ## [0.3.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.2.0...v0.3.0) (2024-06-10)
 
 
