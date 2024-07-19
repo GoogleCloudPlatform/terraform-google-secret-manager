@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,71 +19,85 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
-  title: terraform-google-secret-manager
-  source:
-    repo: https://github.com/GoogleCloudPlatform/terraform-google-secret-manager.git
-    sourceType: git
-  version: 0.3.0
-  actuationTool:
-    type: Terraform
-    version: '>= 0.13'
-  examples:
-  - name: kms
-    location: examples/kms
-  - name: multiple
-    location: examples/multiple
-  - name: pubsub
-    location: examples/pubsub
-  - name: simple
-    location: examples/simple
-  variables:
-  - name: add_kms_permissions
-    description: The list of the crypto keys to give secret manager access to
-    type: list(string)
-    default: []
-    required: false
-  - name: add_pubsub_permissions
-    description: The list of the pubsub topics to give secret manager access to
-    type: list(string)
-    default: []
-    required: false
-  - name: labels
-    description: labels to be added for the defined secrets
-    type: map(map(string))
-    default: {}
-    required: false
-  - name: project_id
-    description: The project ID to manage the Secret Manager resources
-    type: string
-    required: true
-  - name: secrets
-    description: The list of the secrets
-    type: list(map(string))
-    default: []
-    required: false
-  - name: topics
-    description: topics that will be used for defined secrets
-    type: map(list(object({ name = string })))
-    default: {}
-    required: false
-  - name: user_managed_replication
-    description: Replication parameters that will be used for defined secrets
-    type: map(list(object({ location = string, kms_key_name = string })))
-    default: {}
-    required: false
-  outputs:
-  - name: secret_names
-    description: The name list of Secrets
-  - name: secret_versions
-    description: The name list of Secret Versions
-  roles:
-  - level: Project
+  info:
+    title: terraform-google-secret-manager
+    source:
+      repo: https://github.com/GoogleCloudPlatform/terraform-google-secret-manager.git
+      sourceType: git
+    version: 1.0.0
+    actuationTool:
+      flavor: Terraform
+      version: ">= 0.13"
+    description: {}
+  content:
+    examples:
+      - name: kms
+        location: examples/kms
+      - name: multiple
+        location: examples/multiple
+      - name: pubsub
+        location: examples/pubsub
+      - name: simple
+        location: examples/simple
+  interfaces:
+    variables:
+      - name: add_kms_permissions
+        description: The list of the crypto keys to give secret manager access to
+        varType: list(string)
+        defaultValue: []
+      - name: add_pubsub_permissions
+        description: The list of the pubsub topics to give secret manager access to
+        varType: list(string)
+        defaultValue: []
+      - name: automatic_replication
+        description: Automatic replication parameters that will be used for defined secrets. If not provided, the secret will be automatically replicated using Google-managed key without any restrictions.
+        varType: map(object({ kms_key_name = string }))
+        defaultValue: {}
+      - name: labels
+        description: labels to be added for the defined secrets
+        varType: map(map(string))
+        defaultValue: {}
+      - name: project_id
+        description: The project ID to manage the Secret Manager resources
+        varType: string
+        required: true
+      - name: secret_accessors_list
+        description: The list of the members to allow accessing secrets
+        varType: list(string)
+        defaultValue: []
+      - name: secrets
+        description: The list of the secrets
+        varType: |-
+          list(object({
+              name : string,
+              secret_data : optional(string),
+              next_rotation_time : optional(string),
+              rotation_period : optional(string),
+              create_version : optional(bool, true)
+            }))
+        defaultValue: []
+      - name: topics
+        description: topics that will be used for defined secrets
+        varType: map(list(object({ name = string })))
+        defaultValue: {}
+      - name: user_managed_replication
+        description: Replication parameters that will be used for defined secrets
+        varType: map(list(object({ location = string, kms_key_name = string })))
+        defaultValue: {}
+    outputs:
+      - name: secret_names
+        description: The name list of Secrets
+      - name: secret_versions
+        description: The name list of Secret Versions
+  requirements:
     roles:
-    - roles/owner
-  services:
-  - cloudresourcemanager.googleapis.com
-  - storage-api.googleapis.com
-  - serviceusage.googleapis.com
-  - secretmanager.googleapis.com
-  - pubsub.googleapis.com
-  - cloudkms.googleapis.com
+      - level: Project
+        roles:
+          - roles/owner
+    services:
+      - cloudresourcemanager.googleapis.com
+      - storage-api.googleapis.com
+      - serviceusage.googleapis.com
+      - secretmanager.googleapis.com
+      - pubsub.googleapis.com
+      - cloudkms.googleapis.com

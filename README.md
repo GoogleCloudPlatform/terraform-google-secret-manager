@@ -35,7 +35,7 @@ Functional examples are included in the [examples](./examples/) directory.
 | labels | labels to be added for the defined secrets | `map(map(string))` | `{}` | no |
 | project\_id | The project ID to manage the Secret Manager resources | `string` | n/a | yes |
 | secret\_accessors\_list | The list of the members to allow accessing secrets | `list(string)` | `[]` | no |
-| secrets | The list of the secrets | `list(map(string))` | `[]` | no |
+| secrets | The list of the secrets | <pre>list(object({<br>    name : string,<br>    secret_data : optional(string),<br>    next_rotation_time : optional(string),<br>    rotation_period : optional(string),<br>    create_version : optional(bool, true)<br>  }))</pre> | `[]` | no |
 | topics | topics that will be used for defined secrets | `map(list(object({ name = string })))` | `{}` | no |
 | user\_managed\_replication | Replication parameters that will be used for defined secrets | `map(list(object({ location = string, kms_key_name = string })))` | `{}` | no |
 
