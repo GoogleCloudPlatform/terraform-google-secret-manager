@@ -36,19 +36,26 @@ resource "google_pubsub_topic_iam_member" "sm_sa_publisher" {
   topic   = google_pubsub_topic.secret.name
 }
 
-module "secret" {
-  source  = "GoogleCloudPlatform/secret-manager/google//modules/secret"
+module "secret-manager" {
+  source  = "GoogleCloudPlatform/secret-manager/google"
   version = "~> 0.3"
 
-  project_id  = var.project_id
-  name        = "secret-pubsub-1"
-  secret_data = "secret information"
-  rotation = {
-    next_rotation_time = "2024-10-02T15:01:23Z"
-    rotation_period    = "31536000s"
+  project_id = var.project_id
+  secrets = [
+    {
+      name               = "secret-pubsub-1"
+      next_rotation_time = "2024-10-02T15:01:23Z"
+      rotation_period    = "31536000s"
+      secret_data        = "secret information"
+    },
+  ]
+  topics = {
+    secret-pubsub-1 = [
+      {
+        name = google_pubsub_topic.secret.id
+      }
+    ]
   }
-  topics = [google_pubsub_topic.secret.id]
-
   depends_on = [
     google_pubsub_topic_iam_member.sm_sa_publisher
   ]

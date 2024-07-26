@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-output "secret_name" {
-  value       = module.secret.name
-  description = "Secret Name"
+output "secret_names" {
+  value       = module.secret-manager.secret_names
+  description = "List of secret names"
 }
 
-output "secret_version" {
-  value       = module.secret.version
-  description = "Secret Version"
+output "secret_versions" {
+  value       = module.secret-manager.secret_versions
+  description = "List of secret versions"
 }
