@@ -10,7 +10,7 @@ Basic usage of this module is as follows:
 ```hcl
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google//modules/simple-secret"
-  version = "~> 0.3"
+  version = "~> 0.4"
 
   project_id  = var.project_id
   name        = "secret-1"
