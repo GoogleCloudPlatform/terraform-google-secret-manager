@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-output "secret_name" {
-  value       = module.secret.name
-  description = "Secret Name"
+output "id" {
+  description = "The ID of the created secret"
+  value       = google_secret_manager_secret.secret.id
 }
 
-output "secret_version" {
-  value       = module.secret.version
-  description = "Secret Version"
+output "name" {
+  description = "The name of the created secret"
+  value       = google_secret_manager_secret.secret.name
+}
+
+output "version" {
+  description = "The version of the created secret"
+  value       = google_secret_manager_secret_version.version.name
 }
 
 output "project_id" {
   description = "GCP Project ID where secret was created"
-  value       = module.secret.project_id
+  value       = google_secret_manager_secret.secret.project
 }

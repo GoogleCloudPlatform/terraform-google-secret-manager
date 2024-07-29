@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-output "secret_name" {
-  value       = module.secret.name
-  description = "Secret Name"
-}
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 4.83.0, < 6"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 4.83.0, < 6"
+    }
+  }
 
-output "secret_version" {
-  value       = module.secret.version
-  description = "Secret Version"
-}
-
-output "project_id" {
-  description = "GCP Project ID where secret was created"
-  value       = module.secret.project_id
+  provider_meta "google" {
+    module_name = "blueprints/terraform/secret-manager:simple-secret/v0.3.0"
+  }
 }
