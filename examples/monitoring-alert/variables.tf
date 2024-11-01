@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,4 +17,15 @@
 variable "project_id" {
   type        = string
   description = "The project ID to manage the Secret Manager resources"
+}
+
+variable "email_addresses" {
+  type        = list(string)
+  description = "Email addresses used for sending notifications to."
+}
+
+variable "monitor_all_secrets" {
+  type        = bool
+  description = "True for all secrets under the same project to be monitored, false for only the secret created in this example to be monitored."
+  default     = false
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ output "project_id" {
   description = "GCP Project ID where secret was created."
 }
 
-output "notification_channel_name" {
-  value       = google_monitoring_notification_channel.email_channel.name
-  description = "Notification channel name."
+output "notification_channel_names" {
+  value       = [for email_ch in google_monitoring_notification_channel.email_channel : email_ch.name]
+  description = "Notification channel names."
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,11 +38,10 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   conditions {
     display_name = "Destroy condition"
     condition_matched_log {
-      filter = join(" AND ", [
-        "protoPayload.serviceName=\"secretmanager.googleapis.com\"",
+      filter = join(" AND ", flatten([
         "protoPayload.methodName=\"google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion\"",
-        "protoPayload.resourceName : \"${module.secret-manager.secret_names[0]}\""
-      ])
+        var.monitor_all_secrets ? [] : ["protoPayload.resourceName : \"${module.secret-manager.secret_names[0]}\""]
+      ]))
     }
   }
 
@@ -52,18 +51,19 @@ resource "google_monitoring_alert_policy" "alert_policy" {
     }
   }
 
-  notification_channels = [google_monitoring_notification_channel.email_channel.name]
+  notification_channels = [for email_ch in google_monitoring_notification_channel.email_channel : email_ch.name]
 
   severity = "WARNING"
 }
 
 resource "google_monitoring_notification_channel" "email_channel" {
+  for_each     = toset(var.email_addresses)
   project      = var.project_id
   display_name = "Secret deletion alert channel"
   type         = "email"
   description  = "Sends email notifications for secret deletion alerts"
 
   labels = {
-    email_address = "email@example.com"
+    email_address = each.value
   }
 }

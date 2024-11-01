@@ -31,6 +31,7 @@ module "project" {
     "secretmanager.googleapis.com",
     "pubsub.googleapis.com",
     "cloudkms.googleapis.com",
-    "monitoring.googleapis.com"
+    "monitoring.googleapis.com",
+    "logging.googleapis.com"
   ]
 }
