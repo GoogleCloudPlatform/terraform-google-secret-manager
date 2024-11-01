@@ -6,8 +6,8 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 4.0 |
+| [terraform](https://www.terraform.io/downloads.html) | >= 0.13 |
+| [google](https://github.com/hashicorp/terraform-provider-google) | ~> 4.0 |
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
