@@ -69,7 +69,7 @@ module "secret-manager" {
   secrets = [
     {
       name               = "secret-multi-1"
-      next_rotation_time = "2024-10-02T15:01:23Z"
+      next_rotation_time = "2030-01-01T00:00:01Z"
       rotation_period    = "31536000s"
       secret_data        = "my_secret"
     },
