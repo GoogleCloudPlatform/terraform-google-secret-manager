@@ -44,7 +44,6 @@ module "secret-manager" {
   secrets = [
     {
       name               = "secret-pubsub-1"
-      rotation_period    = "31536000s"
       secret_data        = "secret information"
     },
   ]
