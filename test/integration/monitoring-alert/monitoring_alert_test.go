@@ -38,12 +38,14 @@ func TestMonitoringAlertSecret(t *testing.T) {
 	secretT.DefineVerify(func(assert *assert.Assertions) {
 		secretT.DefaultVerify(assert)
 
+		outputSecretPath := strings.Split(secretT.GetJsonOutput("secret_names").Array()[0].String(), "/")
+		outputSecretName := outputSecretPath[len(outputSecretPath)-1]
 		projectId := secretT.GetStringOutput("project_id")
 		projectDescribe := gcloud.Runf(t, "projects describe %s", projectId)
 		projectNumber := projectDescribe.Get("projectNumber").String()
-		secretDescribe := gcloud.Runf(t, "secrets describe %s --project %s", "secret-1", projectId)
+		secretDescribe := gcloud.Runf(t, "secrets describe %s --project %s", outputSecretName, projectId)
 		secretName := secretDescribe.Get("name").String()
-		assert.Equal(fmt.Sprintf("projects/%s/secrets/secret-1", projectNumber), secretName, "has expected name")
+		assert.Equal(fmt.Sprintf("projects/%s/secrets/%s", projectNumber, outputSecretName), secretName, "has expected name")
 
 		notificationChannelNames := secretT.GetJsonOutput("notification_channel_names").Array()
 		assert.Len(notificationChannelNames, 1)
@@ -80,12 +82,14 @@ func TestMonitoringAlertSecret(t *testing.T) {
 				}
 			}
 			return true, errors.New("Alert wasn't fired correctly.")
-		}, 200, 10*time.Second)
+		},
+			/* numRetries= */ 20,
+			/* interval= */ 10*time.Second)
 	})
 	secretT.Test()
 }
 
-func TestMonitoringAlertAllSecrets(t *testing.T) {
+func TestMonitorExistingSecrets(t *testing.T) {
 	email_addresses := []string{"email@example.com", "email2@example.com"}
 	vars := map[string]interface{}{
 		"email_addresses":     email_addresses,
@@ -96,12 +100,15 @@ func TestMonitoringAlertAllSecrets(t *testing.T) {
 
 	secretT.DefineVerify(func(assert *assert.Assertions) {
 		secretT.DefaultVerify(assert)
+
+		outputSecretPath := strings.Split(secretT.GetJsonOutput("secret_names").Array()[0].String(), "/")
+		outputSecretName := outputSecretPath[len(outputSecretPath)-1]
 		projectId := secretT.GetStringOutput("project_id")
 		projectDescribe := gcloud.Runf(t, "projects describe %s", projectId)
 		projectNumber := projectDescribe.Get("projectNumber").String()
-		secretDescribe := gcloud.Runf(t, "secrets describe %s --project %s", "secret-1", projectId)
+		secretDescribe := gcloud.Runf(t, "secrets describe %s --project %s", outputSecretName, projectId)
 		secretName := secretDescribe.Get("name").String()
-		assert.Equal(fmt.Sprintf("projects/%s/secrets/secret-1", projectNumber), secretName, "has expected name")
+		assert.Equal(fmt.Sprintf("projects/%s/secrets/%s", projectNumber, outputSecretName), secretName, "has expected name")
 
 		notificationChannelNames := secretT.GetJsonOutput("notification_channel_names").Array()
 		assert.Len(notificationChannelNames, 2)

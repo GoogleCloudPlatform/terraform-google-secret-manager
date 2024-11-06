@@ -16,7 +16,7 @@
 
 variable "project_id" {
   type        = string
-  description = "The project ID to manage the Secret Manager resources"
+  description = "The project ID to manage the Secret Manager resources."
 }
 
 variable "email_addresses" {
@@ -26,6 +26,6 @@ variable "email_addresses" {
 
 variable "monitor_all_secrets" {
   type        = bool
-  description = "True for all secrets under the same project to be monitored, false for only the secret created in this example to be monitored."
+  description = "True for all secrets under the same project to be monitored, false for only the secret created in this example to be monitored. Default: false."
   default     = false
 }

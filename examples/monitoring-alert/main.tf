@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
   version = "~> 0.4"
@@ -22,12 +21,17 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name        = "secret-1"
+      name        = "secret-name"
       secret_data = "secret information"
     },
   ]
 }
 
+/**
+ * Send a warning email when a secret is destroyed.
+ * Has a notification rate limit of 5 minutes. If two secrets
+ * are deleted in less than 5 minutes only one notification will be sent.
+ */
 resource "google_monitoring_alert_policy" "alert_policy" {
   project      = var.project_id
   display_name = "Secret Deletion Alert"
