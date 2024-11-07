@@ -39,7 +39,7 @@ func TestMonitoringAlertSecret(t *testing.T) {
 	secretT.DefineVerify(func(assert *assert.Assertions) {
 		secretT.DefaultVerify(assert)
 
-		outputSecretPath := strings.Split(secretT.GetJsonOutput("secret_names").Array()[0].String(), "/")
+		outputSecretPath := strings.Split(secretT.GetStringOutput("secret_name"), "/")
 		outputSecretName := outputSecretPath[len(outputSecretPath)-1]
 		projectId := secretT.GetStringOutput("project_id")
 		projectDescribe := gcloud.Runf(t, "projects describe %s", projectId)
@@ -60,7 +60,7 @@ func TestMonitoringAlertSecret(t *testing.T) {
 		monitoringAlert := monitoringAlerts[0]
 		alertCondition := monitoringAlerts[0].Get("conditions").Array()
 		assert.Len(alertCondition, 1)
-		expectedFilter := fmt.Sprintf("protoPayload.methodName=\"google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion\" AND protoPayload.resourceName : \"%s\"", secretT.GetJsonOutput("secret_names").Array()[0].String())
+		expectedFilter := fmt.Sprintf("protoPayload.methodName=\"google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion\" AND protoPayload.resourceName : \"%s\"", secretT.GetStringOutput("secret_name"))
 		assert.Equal(expectedFilter, alertCondition[0].Get("conditionMatchedLog.filter").String())
 		notificationChannel := monitoringAlert.Get("notificationChannels").Array()[0].String()
 		assert.Equal(notificationChannelName, notificationChannel)
@@ -102,7 +102,7 @@ func TestMonitorExistingSecrets(t *testing.T) {
 	secretT.DefineVerify(func(assert *assert.Assertions) {
 		secretT.DefaultVerify(assert)
 
-		outputSecretPath := strings.Split(secretT.GetJsonOutput("secret_names").Array()[0].String(), "/")
+		outputSecretPath := strings.Split(secretT.GetStringOutput("secret_name"), "/")
 		outputSecretName := outputSecretPath[len(outputSecretPath)-1]
 		projectId := secretT.GetStringOutput("project_id")
 		projectDescribe := gcloud.Runf(t, "projects describe %s", projectId)

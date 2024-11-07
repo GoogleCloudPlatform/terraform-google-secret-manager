@@ -17,7 +17,7 @@ No requirements.
 |------|-------------|
 | notification\_channel\_names | Notification channel names. |
 | project\_id | GCP Project ID where secret was created. |
-| secret\_names | List of secret names. |
-| secret\_versions | List of secret versions. |
+| secret\_name | The name of the created secret. |
+| secret\_version | The version of the created secret. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
