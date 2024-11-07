@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-output "secret_names" {
-  value       = module.secret-manager.secret_names
-  description = "List of secret names."
+output "secret_name" {
+  value       = module.secret-manager.name
+  description = "The name of the created secret."
 }
 
-output "secret_versions" {
-  value       = module.secret-manager.secret_versions
-  description = "List of secret versions."
+output "secret_version" {
+  value       = module.secret-manager.version
+  description = "The version of the created secret."
 }
 
 output "project_id" {

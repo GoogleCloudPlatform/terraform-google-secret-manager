@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
+resource "random_string" "secret-suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
 module "secret-manager" {
-  source  = "GoogleCloudPlatform/secret-manager/google"
+  source  = "GoogleCloudPlatform/secret-manager/google//modules/simple-secret"
   version = "~> 0.4"
 
-  project_id = var.project_id
-  secrets = [
-    {
-      name        = "secret-name"
-      secret_data = "secret information"
-    },
-  ]
+  project_id  = var.project_id
+  name        = "secret-${random_string.secret-suffix.result}"
+  secret_data = "secret information"
 }
 
 /**
@@ -36,7 +38,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   project      = var.project_id
   display_name = "Secret Deletion Alert"
   documentation {
-    content = "Secret manager alert: one secret from ${module.secret-manager.secret_names[0]} was destroyed."
+    content = "Secret manager alert: one secret from ${module.secret-manager.name} was destroyed."
   }
   combiner = "OR"
   conditions {
@@ -44,7 +46,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
     condition_matched_log {
       filter = join(" AND ", flatten([
         "protoPayload.methodName=\"google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion\"",
-        var.monitor_all_secrets ? [] : ["protoPayload.resourceName : \"${module.secret-manager.secret_names[0]}\""]
+        var.monitor_all_secrets ? [] : ["protoPayload.resourceName : \"${module.secret-manager.name}\""]
       ]))
     }
   }
