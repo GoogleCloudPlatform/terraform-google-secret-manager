@@ -30,7 +30,8 @@ import (
 func TestMonitoringAlertSecret(t *testing.T) {
 	email_address := "email@example.com"
 	vars := map[string]interface{}{
-		"email_addresses": []string{email_address},
+		"email_addresses":     []string{email_address},
+		"monitor_all_secrets": false,
 	}
 
 	secretT := tft.NewTFBlueprintTest(t, tft.WithVars(vars))
