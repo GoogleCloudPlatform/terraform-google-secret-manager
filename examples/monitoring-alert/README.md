@@ -1,6 +1,13 @@
+# Monitoring Alerting Secret
+
+This test example creates a secret on Secret Manager and
+monitors it by sending a warning email when a secret version is destroyed.
+Has a notification rate limit of 5 minutes. If two secrets are deleted
+in less than 5 minutes only one notification will be sent.
+
 ## Requirements
 
-No requirements.
+https://developer.hashicorp.com/terraform/language/state
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
