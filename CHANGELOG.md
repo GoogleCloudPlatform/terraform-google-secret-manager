@@ -8,6 +8,14 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.5.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.4.0...v0.5.0) (2024-11-05)
+
+
+### Features
+
+* **deps:** Update Terraform Google Provider to v6 (major) ([#97](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/97)) ([be1d845](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/be1d84531e8581c37974a58ca6ffef63634f3096))
+* **module:** Add a new module "secret" for managing a single secret ([#76](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/76)) ([83217bc](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/83217bcb14abe4ed3bec8f029a8062648a883910))
+
 ## [0.4.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.3.0...v0.4.0) (2024-07-19)
 
 
