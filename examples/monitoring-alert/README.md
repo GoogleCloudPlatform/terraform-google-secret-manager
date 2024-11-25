@@ -7,7 +7,12 @@ in less than 5 minutes only one notification will be sent.
 
 ## Requirements
 
-https://developer.hashicorp.com/terraform/language/state
+If you manage any sensitive data with Terraform (like database passwords,
+user passwords, or private keys), treat the state itself as sensitive data.
+Storing state remotely can provide better security.
+
+See more:
+https://developer.hashicorp.com/terraform/language/state/sensitive-data
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
