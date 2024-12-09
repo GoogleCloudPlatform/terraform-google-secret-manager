@@ -8,6 +8,13 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.5.1](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.5.0...v0.5.1) (2024-12-09)
+
+
+### Bug Fixes
+
+* **deps:** Update go modules and dev-tools ([#102](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/102)) ([dfa3cde](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/dfa3cde0f08bab77308151f5f49a17e50ce0730c))
+
 ## [0.5.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.4.0...v0.5.0) (2024-11-05)
 
 
