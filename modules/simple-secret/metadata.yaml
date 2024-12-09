@@ -1,0 +1,140 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-secret-manager-simple-secret
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: Terraform Google Secret Manager Secret Submodule
+    source:
+      repo: https://github.com/GoogleCloudPlatform/terraform-google-secret-manager.git
+      sourceType: git
+      dir: /modules/simple-secret
+    version: 0.5.0
+    actuationTool:
+      flavor: Terraform
+      version: ">= 0.13"
+    description: {}
+  content:
+    examples:
+      - name: kms
+        location: examples/kms
+      - name: multiple
+        location: examples/multiple
+      - name: pubsub
+        location: examples/pubsub
+      - name: simple
+        location: examples/simple
+  interfaces:
+    variables:
+      - name: project_id
+        description: The project ID to manage the Secret Manager resources
+        varType: string
+        required: true
+      - name: name
+        description: The name of the secret to create.
+        varType: string
+        required: true
+      - name: secret_data
+        description: "The secret data. Must be no larger than 64KiB. Note: This property is sensitive and will not be displayed in the plan."
+        varType: string
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-sql-db//modules/postgresql
+              version: ">= 23.0"
+            spec:
+              outputExpr: generated_user_password
+      - name: rotation
+        description: The rotation policy for the secret. If not set, the secret will not rotate.
+        varType: |-
+          object({
+              rotation_period    = string # The Duration between rotation notifications, in seconds.
+              next_rotation_time = string # The time at which the Secret Manager secret is scheduled for rotation, in RFC3339 format. Examples: '2014-10-02T15:01:23Z' and '2014-10-02T15:01:23.045123456Z'
+            })
+      - name: user_managed_replication
+        description: |
+          Replication parameters that will be used for the defined secret.
+          If not provided, the secret will be automatically replicated using Google-managed key without any regional restrictions.
+          Example:
+            user_managed_replication = [
+              {
+                location = "us-central1"
+                kms_key_name = "projects/PROJECT_ID/locations/LOCATION/keyRings/KEY_RING_NAME/cryptoKeys/KEY_NAME"
+              },
+              {
+                location = "europe-west1"
+                kms_key_name = "projects/PROJECT_ID/locations/LOCATION/keyRings/KEY_RING_NAME/cryptoKeys/KEY_NAME"
+              }
+            ]
+        varType: |-
+          list(object({
+              location     = string,
+              kms_key_name = string,
+            }))
+        defaultValue: []
+      - name: automatic_replication
+        description: |
+          Automatic replication parameters that will be used for the defined secret.
+          If not provided, automatic replication is enabled and Google-managed key is used by default.
+          Example:
+            automatic_replication = {
+              kms_key_name = "projects/PROJECT_ID/locations/LOCATION/keyRings/KEY_RING_NAME/cryptoKeys/KEY_NAME"
+            }
+        varType: |-
+          object({
+              kms_key_name = optional(string, null)
+            })
+        defaultValue: {}
+      - name: topics
+        description: A list of up to 10 Pub/Sub topics to which messages are published when control plane operations are called on the secret or its versions.
+        varType: list(string)
+        defaultValue: []
+      - name: labels
+        description: The map of labels to be added to the defined secret.
+        varType: map(string)
+        defaultValue: {}
+    outputs:
+      - name: id
+        description: The ID of the created secret
+        type: string
+      - name: name
+        description: The name of the created secret
+        type: string
+      - name: project_id
+        description: GCP Project ID where secret was created
+        type: string
+      - name: version
+        description: The version of the created secret
+        type: string
+  requirements:
+    roles:
+      - level: Project
+        roles:
+          - roles/owner
+    services:
+      - cloudresourcemanager.googleapis.com
+      - storage-api.googleapis.com
+      - serviceusage.googleapis.com
+      - secretmanager.googleapis.com
+      - pubsub.googleapis.com
+      - cloudkms.googleapis.com
+    providerVersions:
+      - source: hashicorp/google
+        version: ">= 4.83.0, < 7"
+      - source: hashicorp/google-beta
+        version: ">= 4.83.0, < 7"
