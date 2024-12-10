@@ -15,12 +15,12 @@
  */
 
 output "secret_names" {
-  value       = module.secret-manager.secret_names
+  value       = module.secret_manager.secret_names
   description = "List of secret names."
 }
 
 output "secret_versions" {
-  value       = module.secret-manager.secret_versions
+  value       = module.secret_manager.secret_versions
   description = "List of secret versions."
 }
 
@@ -34,12 +34,12 @@ output "topic" {
   description = "Pub/Sub Topic associated to the Secret."
 }
 
-output "cloud-function-name" {
-  value       = module.cloud-function.function_name
+output "cloud_function_name" {
+  value       = module.cloud_function.function_name
   description = "Cloud function name."
 }
 
-output "cloud-function-uri" {
-  value       = module.cloud-function.function_uri
+output "cloud_function_uri" {
+  value       = module.cloud_function.function_uri
   description = "Cloud function URI."
 }

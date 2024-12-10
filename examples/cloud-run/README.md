@@ -2,6 +2,7 @@ This example creates a Secret monitored by a Cloud Run v2 Function.
 The Cloud Function monitors [events](https://cloud.google.com/secret-manager/docs/event-notifications#events)
 that can occur on a Secret Version. It can be used for executing actions when a
 event happens, like sending warning emails or adding database entries when a Secret Version is destroyed.
+A KMS Key will be created to be used as the Secret Manager's [CMEK](https://cloud.google.com/kms/docs/cmek).
 
 ## Requirements
 
@@ -17,8 +18,8 @@ https://developer.hashicorp.com/terraform/language/state/sensitive-data
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| key | KMS Key name. | `string` | n/a | yes |
-| keyring | KMS Keyring name. | `string` | n/a | yes |
+| key | KMS Key name. | `string` | `"key_name"` | no |
+| keyring | KMS Keyring name. | `string` | `"keyring"` | no |
 | project\_id | The project ID to manage the Secret Manager resources. | `string` | n/a | yes |
 | region | The region which the resources will be created at. | `string` | `"us-central1"` | no |
 
@@ -26,8 +27,8 @@ https://developer.hashicorp.com/terraform/language/state/sensitive-data
 
 | Name | Description |
 |------|-------------|
-| cloud-function-name | Cloud function name. |
-| cloud-function-uri | Cloud function URI. |
+| cloud\_function\_name | Cloud function name. |
+| cloud\_function\_uri | Cloud function URI. |
 | kms\_key\_name | KMS Key Name. |
 | secret\_names | List of secret names. |
 | secret\_versions | List of secret versions. |

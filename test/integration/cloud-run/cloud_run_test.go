@@ -55,7 +55,7 @@ func TestMonitoringAlertSecret(t *testing.T) {
 		outputTopic := secretT.GetStringOutput("topic")
 		assert.Equal(outputTopic, topics[0].Get("name").String())
 
-		cloudRunFunctions := gcloud.Runf(t, "functions list --v2 --project %s --filter serviceConfig.uri='%s'", projectId, secretT.GetStringOutput("cloud-function-uri")).Array()
+		cloudRunFunctions := gcloud.Runf(t, "functions list --v2 --project %s --filter serviceConfig.uri='%s'", projectId, secretT.GetStringOutput("cloud_function_uri")).Array()
 		assert.Len(cloudRunFunctions, 1)
 		cloudRunFunction := cloudRunFunctions[0]
 		assert.Equal("google.cloud.pubsub.topic.v1.messagePublished", cloudRunFunction.Get("eventTrigger.eventType").String())

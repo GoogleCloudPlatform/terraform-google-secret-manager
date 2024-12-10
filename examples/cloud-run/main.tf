@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-locals {
-  key_name = "${var.key}-${random_id.random_topic_id_suffix.hex}"
-}
-
 resource "random_id" "random_topic_id_suffix" {
   byte_length = 2
 }
 
+resource "random_string" "suffix" {
+  length  = 4
+  upper   = false
+  special = false
+}
+
 resource "google_pubsub_topic" "secret_topic" {
   project = var.project_id
-  name    = "topic-${random_id.random_topic_id_suffix.hex}"
+  name    = "topic-${random_string.suffix.result}"
 }
 
 resource "google_project_service_identity" "secretmanager_identity" {
@@ -40,26 +42,26 @@ resource "google_pubsub_topic_iam_member" "sm_sa_publisher" {
   topic   = google_pubsub_topic.secret_topic.name
 }
 
-resource "google_storage_bucket" "bucket" {
+resource "google_storage_bucket" "cloudrun_sourcecode" {
   project                     = var.project_id
-  name                        = "${var.project_id}-pub-sub-source" # Every bucket name must be globally unique
+  name                        = "${var.project_id}-secret-function-source-${random_string.suffix.result}" # Every bucket name must be globally unique
   location                    = var.region
   uniform_bucket_level_access = true
 }
 
-data "archive_file" "src" {
+data "archive_file" "compressed_cloudrun_sourcecode" {
   type        = "zip"
-  source_dir  = "./cloudrun"
-  output_path = "cloudrun.zip"
+  source_dir  = "./cloudrun-source-code"
+  output_path = "cloudrun-source-code.zip"
 }
 
-resource "google_storage_bucket_object" "object" {
+resource "google_storage_bucket_object" "cloudrun_sourcecode" {
   name   = "pub-sub-function-source.zip"
-  bucket = google_storage_bucket.bucket.name
-  source = data.archive_file.src.output_path # Add path to the zipped function source code
+  bucket = google_storage_bucket.cloudrun_sourcecode.name
+  source = data.archive_file.compressed_cloudrun_sourcecode.output_path # Add path to the zipped function source code
 }
 
-resource "google_service_account" "gcf_sa" {
+resource "google_service_account" "cloud_function_sa" {
   project      = var.project_id
   account_id   = "gcf-sa"
   display_name = "Test Service Account"
@@ -68,10 +70,10 @@ resource "google_service_account" "gcf_sa" {
 resource "google_project_iam_member" "gcf_invoker_role" {
   project = var.project_id
   role    = "roles/run.invoker"
-  member  = "serviceAccount:${google_service_account.gcf_sa.email}"
+  member  = "serviceAccount:${google_service_account.cloud_function_sa.email}"
 }
 
-module "cloud-function" {
+module "cloud_function" {
   source  = "GoogleCloudPlatform/cloud-functions/google"
   version = "~> 0.6"
 
@@ -81,8 +83,8 @@ module "cloud-function" {
   runtime           = "python312"
   entrypoint        = "subscribe"
   storage_source = {
-    bucket = google_storage_bucket.bucket.name
-    object = google_storage_bucket_object.object.name
+    bucket = google_storage_bucket.cloudrun_sourcecode.name
+    object = google_storage_bucket_object.cloudrun_sourcecode.name
   }
 
   event_trigger = {
@@ -90,7 +92,7 @@ module "cloud-function" {
     event_type            = "google.cloud.pubsub.topic.v1.messagePublished"
     pubsub_topic          = google_pubsub_topic.secret_topic.id
     retry_policy          = "RETRY_POLICY_RETRY"
-    service_account_email = google_service_account.gcf_sa.email
+    service_account_email = google_service_account.cloud_function_sa.email
   }
 
   service_config = {
@@ -102,7 +104,7 @@ module "cloud-function" {
     available_cpu                    = "1"
     ingress_settings                 = "ALLOW_INTERNAL_ONLY"
     all_traffic_on_latest_revision   = true
-    service_account_email            = google_service_account.gcf_sa.email
+    service_account_email            = google_service_account.cloud_function_sa.email
   }
 
   depends_on = [
@@ -110,34 +112,15 @@ module "cloud-function" {
   ]
 }
 
-module "kms" {
-  source  = "terraform-google-modules/kms/google"
-  version = "3.0.0"
-
-  keyring              = "${var.keyring}-${random_id.random_topic_id_suffix.hex}"
-  location             = var.region
-  project_id           = var.project_id
-  keys                 = [local.key_name]
-  purpose              = "ENCRYPT_DECRYPT"
-  key_protection_level = "HSM"
-  prevent_destroy      = false
-}
-
-resource "google_kms_crypto_key_iam_member" "sm_sa_encrypter_decrypter" {
-  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  member        = "serviceAccount:${google_project_service_identity.secretmanager_identity.email}"
-  crypto_key_id = module.kms.keys[local.key_name]
-}
-
-module "secret-manager" {
+module "secret_manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.4"
+  version = "~> 0.5.0"
 
   project_id = var.project_id
   secrets = [
     {
       name        = "secret-cloud-run-1"
-      secret_data = "secret information"
+      secret_data = "secret information (SENSITIVE TEXT)"
     },
   ]
   topics = {

@@ -28,9 +28,11 @@ variable "region" {
 variable "keyring" {
   description = "KMS Keyring name."
   type        = string
+  default     = "keyring"
 }
 
 variable "key" {
   description = "KMS Key name."
   type        = string
+  default     = "key_name"
 }
