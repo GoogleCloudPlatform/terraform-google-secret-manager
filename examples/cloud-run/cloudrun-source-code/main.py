@@ -22,16 +22,19 @@ import functions_framework
 cloud_logging_client = google.cloud.logging.Client()
 cloud_logging_client.setup_logging()
 
+
 # Triggered from a message on the Cloud Pub/Sub topic,
 # which indicates an event occured in Secret Manager.
 @functions_framework.cloud_event
 def subscribe(cloud_event: CloudEvent) -> None:
-    secret_metadata = base64.b64decode(cloud_event.data['message']['data']).decode()
+    secret_metadata = base64.b64decode(
+        cloud_event.data['message']['data']).decode()
     attributes = cloud_event.data['message']['attributes']
     event_type = attributes['eventType']
     secret_id = attributes['secretId']
 
-    logging.info(f'SM_EVENT: The event {event_type} occured on {secret_id}. Secret metadata: {secret_metadata}.')
+    logging.info(f'SM_EVENT: The event {event_type} occured on {secret_id}. '
+                 f'Secret metadata: {secret_metadata}.')
 
     # For this example, for demonstration purposes, we're handling only
     # secret destruction events. See list of all possible events:
@@ -43,4 +46,5 @@ def subscribe(cloud_event: CloudEvent) -> None:
 # Handles secret destruction. Can be used to send emails,
 # add or remove database entries, and much more.
 def handle_destruction(secret_id: str, secret_metadata: str) -> None:
-    logging.warning(f'SM_DESTROY_EVENT: A secret from {secret_id} was destroyed! Secret metadata: {secret_metadata}')
+    logging.warning(f'SM_DESTROY_EVENT: A secret from {secret_id} was '
+                    f'destroyed! Secret metadata: {secret_metadata}')
