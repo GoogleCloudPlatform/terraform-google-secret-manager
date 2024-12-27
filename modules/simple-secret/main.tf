@@ -68,6 +68,7 @@ resource "google_secret_manager_secret" "secret" {
 }
 
 resource "google_secret_manager_secret_version" "version" {
+  count       = var.secret_data != null ? 1 : 0
   secret      = google_secret_manager_secret.secret.id
   secret_data = var.secret_data
 }
