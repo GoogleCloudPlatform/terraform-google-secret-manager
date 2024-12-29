@@ -26,7 +26,7 @@ output "name" {
 
 output "version" {
   description = "The version of the created secret"
-  value       = google_secret_manager_secret_version.version.name
+  value       = try(google_secret_manager_secret_version.version[0].name, "")
 }
 
 output "project_id" {
