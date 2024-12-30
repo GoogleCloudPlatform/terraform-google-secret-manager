@@ -16,7 +16,9 @@
 
 locals {
   int_required_roles = [
-    "roles/owner"
+    "roles/secretmanager.admin",
+    "roles/cloudkms.admin",
+    "roles/pubsub.admin",
   ]
 }
 
