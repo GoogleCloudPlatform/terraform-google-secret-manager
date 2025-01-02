@@ -96,7 +96,9 @@ spec:
     roles:
       - level: Project
         roles:
-          - roles/owner
+          - roles/secretmanager.admin
+          - roles/cloudkms.admin
+          - roles/pubsub.admin
     services:
       - cloudresourcemanager.googleapis.com
       - storage-api.googleapis.com
