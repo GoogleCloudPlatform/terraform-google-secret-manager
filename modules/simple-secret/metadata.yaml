@@ -59,6 +59,11 @@ spec:
               version: ">= 23.0"
             spec:
               outputExpr: generated_user_password
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-sql-db//modules/mysql
+              version: ">= 23.0"
+            spec:
+              outputExpr: generated_user_password
       - name: rotation
         description: The rotation policy for the secret. If not set, the secret will not rotate.
         varType: |-
