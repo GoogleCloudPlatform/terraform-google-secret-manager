@@ -41,6 +41,7 @@ Functional examples are included in the [examples](../examples/) directory:
 
 | Name | Description |
 |------|-------------|
+| env\_vars | Secret as environment variable |
 | id | The ID of the created secret |
 | name | The name of the created secret |
 | project\_id | GCP Project ID where secret was created |
