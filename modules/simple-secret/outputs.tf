@@ -36,5 +36,5 @@ output "project_id" {
 
 output "env_vars" {
   description = "Secret as environment variable"
-  value       = { "SECRET" : { secret : var.name, version : "latest" } }
+  value       = { "SECRET" : { secret : var.name, version : local.secret_version } }
 }
