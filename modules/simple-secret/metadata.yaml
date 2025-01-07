@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -114,6 +114,13 @@ spec:
         varType: map(string)
         defaultValue: {}
     outputs:
+      - name: env_vars
+        description: Secret as environment variable
+        type:
+          - map
+          - - object
+            - secret: string
+              version: string
       - name: id
         description: The ID of the created secret
         type: string

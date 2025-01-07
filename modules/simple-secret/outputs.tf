@@ -33,3 +33,8 @@ output "project_id" {
   description = "GCP Project ID where secret was created"
   value       = google_secret_manager_secret.secret.project
 }
+
+output "env_vars" {
+  description = "Secret as environment variable"
+  value       = { "SECRET" : { secret : var.name, version : local.secret_version } }
+}
