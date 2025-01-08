@@ -10,10 +10,11 @@ In the release v0.7.0, the secret version creation is not optional and `secret_d
 ```diff
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google//modules/simple-secret"
-  version = "~> 0.7.0"
+- version = "~> 0.6.0"
++ version = "~> 0.7.0"
 
-  project_id = var.project_id
-  name           = "secret-1"
+  project_id  = var.project_id
+  name        = "secret-1"
 + secret_data = "secret information"
 }
 ```
