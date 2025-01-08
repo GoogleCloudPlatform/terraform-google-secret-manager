@@ -53,6 +53,7 @@ spec:
       - name: secret_data
         description: "The secret data. Must be no larger than 64KiB. Note: This property is sensitive and will not be displayed in the plan."
         varType: string
+        required: true
         connections:
           - source:
               source: github.com/terraform-google-modules/terraform-google-sql-db//modules/postgresql
