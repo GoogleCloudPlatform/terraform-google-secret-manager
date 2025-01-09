@@ -8,6 +8,17 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.7.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.6.0...v0.7.0) (2025-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* make secret_data required to create secret version in simple-secret module ([#116](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/116))
+
+### Bug Fixes
+
+* make secret_data required to create secret version in simple-secret module ([#116](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/116)) ([c87f5fa](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/c87f5fa5accab89e9b5b276bc68ccccf338c8079))
+
 ## [0.6.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.5.1...v0.6.0) (2025-01-07)
 
 
