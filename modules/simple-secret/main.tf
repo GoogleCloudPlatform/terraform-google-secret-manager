@@ -19,7 +19,7 @@
  **********************************************************/
 
 locals {
-  secret_name_parts = split("/", try(google_secret_manager_secret_version.version[0].name, ""))
+  secret_name_parts = split("/", google_secret_manager_secret_version.version.name)
   secret_version    = length(local.secret_name_parts) > 0 ? element(local.secret_name_parts, length(local.secret_name_parts) - 1) : ""
 }
 
@@ -73,7 +73,6 @@ resource "google_secret_manager_secret" "secret" {
 }
 
 resource "google_secret_manager_secret_version" "version" {
-  count       = var.secret_data != null ? 1 : 0
   secret      = google_secret_manager_secret.secret.id
   secret_data = var.secret_data
 }
