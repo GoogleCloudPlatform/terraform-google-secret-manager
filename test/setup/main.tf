@@ -30,6 +30,10 @@ module "project" {
     "serviceusage.googleapis.com",
     "secretmanager.googleapis.com",
     "pubsub.googleapis.com",
-    "cloudkms.googleapis.com"
+    "cloudkms.googleapis.com",
+    "eventarc.googleapis.com",
+    "cloudfunctions.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "run.googleapis.com"
   ]
 }
