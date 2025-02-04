@@ -118,10 +118,11 @@ spec:
       - name: env_vars
         description: Secret as environment variable
         type:
-          - map
-          - - object
-            - secret: string
-              version: string
+          - object
+          - SECRET:
+              - object
+              - secret: string
+                version: string
       - name: id
         description: The ID of the created secret
         type: string
