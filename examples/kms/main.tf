@@ -38,15 +38,21 @@ resource "google_project_service_identity" "secretmanager_identity" {
   service  = "secretmanager.googleapis.com"
 }
 
+resource "time_sleep" "wait_service_identity_propagation" {
+  depends_on      = [google_project_service_identity.secretmanager_identity]
+  create_duration = "180s"
+}
+
 resource "google_kms_crypto_key_iam_member" "sm_sa_encrypter_decrypter" {
   role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
   member        = "serviceAccount:${google_project_service_identity.secretmanager_identity.email}"
   crypto_key_id = google_kms_crypto_key.crypto_key.id
+  depends_on    = [time_sleep.wait_service_identity_propagation]
 }
 
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.4"
+  version = "~> 0.5"
 
   project_id = var.project_id
   secrets = [

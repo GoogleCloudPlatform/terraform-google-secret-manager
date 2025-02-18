@@ -18,6 +18,11 @@
   Secret Manager Secret and Version
  **********************************************************/
 
+locals {
+  secret_name_parts = split("/", google_secret_manager_secret_version.version.name)
+  secret_version    = length(local.secret_name_parts) > 0 ? element(local.secret_name_parts, length(local.secret_name_parts) - 1) : ""
+}
+
 resource "google_secret_manager_secret" "secret" {
   project   = var.project_id
   secret_id = var.name

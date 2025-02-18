@@ -8,6 +8,43 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.7.1](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.7.0...v0.7.1) (2025-02-04)
+
+
+### Bug Fixes
+
+* update output type for env_vars in metadata ([#126](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/126)) ([099bc5d](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/099bc5d2d3a6888f22b19abd938ec1bbe2eb0b4a))
+
+## [0.7.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.6.0...v0.7.0) (2025-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* make secret_data required to create secret version in simple-secret module ([#116](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/116))
+
+### Bug Fixes
+
+* make secret_data required to create secret version in simple-secret module ([#116](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/116)) ([c87f5fa](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/c87f5fa5accab89e9b5b276bc68ccccf338c8079))
+
+## [0.6.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.5.1...v0.6.0) (2025-01-07)
+
+
+### Features
+
+* add new output variable called env_vars ([#115](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/115)) ([e89eb0a](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/e89eb0a683d0d3ca32a366edc2ebe6c151bb31ad))
+
+
+### Bug Fixes
+
+* do not create secret version when secret_data is null ([#111](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/111)) ([6294316](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/629431642e2ebd15e441ee7501535cd1b2036e85))
+
+## [0.5.1](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.5.0...v0.5.1) (2024-12-09)
+
+
+### Bug Fixes
+
+* **deps:** Update go modules and dev-tools ([#102](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/102)) ([dfa3cde](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/dfa3cde0f08bab77308151f5f49a17e50ce0730c))
+
 ## [0.5.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.4.0...v0.5.0) (2024-11-05)
 
 
