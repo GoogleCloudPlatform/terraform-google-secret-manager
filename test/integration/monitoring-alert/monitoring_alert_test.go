@@ -75,7 +75,7 @@ func TestMonitoringAlertSecret(t *testing.T) {
 				notificationChannelStringNames := []string{}
 				for _, notificationChannelName := range notificationChannelNames {
 					notificationChannelStringNames = append(notificationChannelStringNames, notificationChannelName.String())
-					monitoringChannel := gcloud.Runf(t, "beta monitoring channels list --project %s --filter name='%s'", projectId, notificationChannelName.String()).Array()
+					monitoringChannel := gcloud.Runf(t, "beta monitoring channels list --project %s --filter \"name='%s'\"", projectId, notificationChannelName.String()).Array()
 					assert.Len(monitoringChannel, 1)
 					notificationChannelEmailAddresses = append(notificationChannelEmailAddresses, monitoringChannel[0].Get("labels.email_address").String())
 				}
