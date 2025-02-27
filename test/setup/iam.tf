@@ -19,6 +19,8 @@ locals {
     "roles/secretmanager.admin",
     "roles/cloudkms.admin",
     "roles/pubsub.admin",
+    "roles/monitoring.admin",
+    "roles/logging.admin",
   ]
 }
 
