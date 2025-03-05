@@ -37,6 +37,8 @@ spec:
         name:
           name: name
           title: Name
+          regexValidation: ^[A-Za-z0-9_-]{0,254}[A-Za-z0-9]$
+          validation: A secret name can contain uppercase and lowercase letters, numerals, hyphens, and underscores. The maximum allowed length for a name is 255 characters.
         project_id:
           name: project_id
           title: Project Id
