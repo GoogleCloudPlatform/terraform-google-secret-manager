@@ -8,6 +8,13 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.8.0](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.7.1...v0.8.0) (2025-03-05)
+
+
+### Features
+
+* add example with monitoring alert for secret version destruction ([#100](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/issues/100)) ([4b7a360](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/commit/4b7a360c715eb3c5e36c45d202db0ba486c2d634))
+
 ## [0.7.1](https://github.com/GoogleCloudPlatform/terraform-google-secret-manager/compare/v0.7.0...v0.7.1) (2025-02-04)
 
 
