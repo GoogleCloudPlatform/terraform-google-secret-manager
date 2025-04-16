@@ -84,6 +84,7 @@ resource "google_secret_manager_secret" "secrets" {
       rotation_period    = lookup(each.value, "rotation_period", null)
     }
   }
+  version_destroy_ttl = var.version_destroy_ttl
   depends_on = [
     google_kms_crypto_key_iam_member.sm_sa_encrypter_decrypter,
     google_pubsub_topic_iam_member.sm_sa_publisher
