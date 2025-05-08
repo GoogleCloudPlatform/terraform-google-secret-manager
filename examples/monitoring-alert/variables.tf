@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 1.3"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 4.83.0, < 7"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 4.83.0, < 7"
-    }
-  }
+variable "project_id" {
+  type        = string
+  description = "The project ID to manage the Secret Manager resources."
+}
 
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-secret-manager:simple-secret/v0.8.0"
-  }
+variable "email_addresses" {
+  type        = list(string)
+  description = "Email addresses used for sending notifications to."
+}
+
+variable "monitor_all_secrets" {
+  type        = bool
+  description = "Flag for determining if all secrets under the current project should be monitored. True for all secrets under the current project to be monitored, false for only the secret created in this example to be monitored. Default: false."
+  default     = false
 }

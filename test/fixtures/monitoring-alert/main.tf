@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 1.3"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 4.83.0, < 7"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 4.83.0, < 7"
-    }
-  }
-
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-secret-manager:simple-secret/v0.8.0"
-  }
+module "monitoring-alert" {
+  source          = "../../../examples/monitoring-alert"
+  project_id      = var.project_id
+  email_addresses = ["email@example.com"]
 }

@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 1.3"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 4.83.0, < 7"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 4.83.0, < 7"
-    }
-  }
+output "secret_name" {
+  value       = module.monitoring-alert.secret_name
+  description = "The name of the created secret."
+}
 
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-secret-manager:simple-secret/v0.8.0"
-  }
+output "project_id" {
+  value       = var.project_id
+  description = "GCP Project ID where secret was created."
+}
+
+output "notification_channel_names" {
+  value       = module.monitoring-alert.notification_channel_names
+  description = "Notification channel names."
 }
