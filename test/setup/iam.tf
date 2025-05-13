@@ -21,6 +21,7 @@ locals {
     "roles/pubsub.admin",
     "roles/monitoring.admin",
     "roles/logging.admin",
+    "roles/iam.serviceAccountAdmin",
   ]
 }
 
