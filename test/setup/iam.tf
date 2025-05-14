@@ -22,6 +22,7 @@ locals {
     "roles/monitoring.admin",
     "roles/logging.admin",
     "roles/iam.serviceAccountAdmin",
+    "roles/storage.admin",
   ]
 }
 
