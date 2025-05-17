@@ -21,6 +21,11 @@ locals {
     "roles/pubsub.admin",
     "roles/monitoring.admin",
     "roles/logging.admin",
+    "roles/iam.serviceAccountAdmin",
+    "roles/storage.admin",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/cloudfunctions.admin",
+    "roles/iam.serviceAccountUser"
   ]
 }
 

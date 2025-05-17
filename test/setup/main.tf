@@ -32,6 +32,10 @@ module "project" {
     "pubsub.googleapis.com",
     "cloudkms.googleapis.com",
     "monitoring.googleapis.com",
-    "logging.googleapis.com"
+    "logging.googleapis.com",
+    "eventarc.googleapis.com",
+    "cloudfunctions.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "run.googleapis.com"
   ]
 }
