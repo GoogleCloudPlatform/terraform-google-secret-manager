@@ -15,13 +15,26 @@
  */
 
 locals {
-  int_required_roles = [
+  per_module_roles = {
+    simple-secret = [
+      "roles/secretmanager.secretAccessor",
+      "roles/secretmanager.secretVersionAdder",
+      "roles/secretmanager.viewer",
+      "roles/logging.logWriter"
+    ]
+    root = [
+      "roles/secretmanager.admin",
+      "roles/iam.serviceAccountUser",
+      "roles/logging.logWriter"
+    ]
+  }
+  int_required_roles = concat([
     "roles/secretmanager.admin",
     "roles/cloudkms.admin",
     "roles/pubsub.admin",
     "roles/monitoring.admin",
     "roles/logging.admin",
-  ]
+  ], flatten(values(local.per_module_roles)))
 }
 
 resource "google_service_account" "int_test" {

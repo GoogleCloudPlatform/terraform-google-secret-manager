@@ -34,6 +34,8 @@ spec:
     examples:
       - name: kms
         location: examples/kms
+      - name: monitoring-alert
+        location: examples/monitoring-alert
       - name: multiple
         location: examples/multiple
       - name: pubsub
@@ -139,16 +141,12 @@ spec:
     roles:
       - level: Project
         roles:
-          - roles/secretmanager.admin
-          - roles/cloudkms.admin
-          - roles/pubsub.admin
+          - roles/logging.logWriter
+          - roles/secretmanager.secretAccessor
+          - roles/secretmanager.secretVersionAdder
+          - roles/secretmanager.viewer
     services:
-      - cloudresourcemanager.googleapis.com
-      - storage-api.googleapis.com
-      - serviceusage.googleapis.com
       - secretmanager.googleapis.com
-      - pubsub.googleapis.com
-      - cloudkms.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 4.83.0, < 7"

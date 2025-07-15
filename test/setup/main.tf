@@ -13,6 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+locals {
+  per_module_services = {
+    simple-secret = [
+      "secretmanager.googleapis.com"
+    ]
+    root = [
+      "secretmanager.googleapis.com",
+      "iam.googleapis.com"
+    ]
+  }
+}
 
 module "project" {
   source  = "terraform-google-modules/project-factory/google"
@@ -24,7 +35,7 @@ module "project" {
   folder_id         = var.folder_id
   billing_account   = var.billing_account
 
-  activate_apis = [
+  activate_apis = concat([
     "cloudresourcemanager.googleapis.com",
     "storage-api.googleapis.com",
     "serviceusage.googleapis.com",
@@ -33,5 +44,5 @@ module "project" {
     "cloudkms.googleapis.com",
     "monitoring.googleapis.com",
     "logging.googleapis.com"
-  ]
+  ], flatten(values(local.per_module_services)))
 }
