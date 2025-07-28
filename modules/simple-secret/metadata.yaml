@@ -141,11 +141,13 @@ spec:
     roles:
       - level: Project
         roles:
+          - roles/secretmanager.admin
+          - roles/cloudkms.admin
+          - roles/pubsub.admin
           - roles/logging.logWriter
-          - roles/secretmanager.secretAccessor
-          - roles/secretmanager.secretVersionAdder
-          - roles/secretmanager.viewer
     services:
+      - cloudkms.googleapis.com
+      - pubsub.googleapis.com
       - secretmanager.googleapis.com
     providerVersions:
       - source: hashicorp/google

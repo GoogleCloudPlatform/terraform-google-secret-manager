@@ -17,9 +17,9 @@
 locals {
   per_module_roles = {
     simple-secret = [
-      "roles/secretmanager.secretAccessor",
-      "roles/secretmanager.secretVersionAdder",
-      "roles/secretmanager.viewer",
+      "roles/secretmanager.admin",
+      "roles/cloudkms.admin",
+      "roles/pubsub.admin",
       "roles/logging.logWriter"
     ]
     root = [

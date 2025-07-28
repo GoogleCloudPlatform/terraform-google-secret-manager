@@ -16,7 +16,9 @@
 locals {
   per_module_services = {
     simple-secret = [
-      "secretmanager.googleapis.com"
+      "secretmanager.googleapis.com",
+      "pubsub.googleapis.com",
+      "cloudkms.googleapis.com",
     ]
     root = [
       "secretmanager.googleapis.com",
