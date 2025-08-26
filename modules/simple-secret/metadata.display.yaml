@@ -35,7 +35,7 @@ spec:
             kms_key_name:
               name: kms_key_name
               title: KMS Key Name
-              regexValidation: "^projects\\/[^\\/]+\\/locations\\/[^\\/]+\\/keyRings\\/[^\\/]+\\/cryptoKeys\\/[^\\/]+$"
+              regexValidation: "^projects/[^/]+/locations/[^/]+/keyRings/[^/]+/cryptoKeys/[^/]+$"
               validation: A KMS key name must be in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
         labels:
           name: labels
@@ -68,7 +68,7 @@ spec:
         topics:
           name: topics
           title: Topics
-          regexValidation: "^projects\\/[^\\/]+\\/topics\\/[^\\/]+$"
+          regexValidation: "^projects/[^/]+/topics/[^/]+$"
           validation: A Pub/Sub topic name must be in the format `projects/PROJECT_ID/topics/TOPIC_ID`.
         user_managed_replication:
           name: user_managed_replication
@@ -77,5 +77,5 @@ spec:
             kms_key_name:
               name: kms_key_name
               title: KMS Key Name
-              regexValidation: "^projects\\/[^\\/]+\\/locations\\/[^\\/]+\\/keyRings\\/[^\\/]+\\/cryptoKeys\\/[^\\/]+$"
+              regexValidation: "^projects/[^/]+/locations/[^/]+/keyRings/[^/]+/cryptoKeys/[^/]+$"
               validation: A KMS key name must be in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
