@@ -28,29 +28,58 @@ locals {
       "roles/logging.logWriter"
     ]
   }
-  int_required_roles = concat([
-    "roles/secretmanager.admin",
-    "roles/cloudkms.admin",
-    "roles/pubsub.admin",
-    "roles/monitoring.admin",
-    "roles/logging.admin",
-  ], flatten(values(local.per_module_roles)))
+
+  extra_roles_for_tests = {
+    root = [
+      "roles/cloudkms.admin",
+      "roles/pubsub.admin",
+    ],
+    simple-secret = [
+      "roles/logging.admin",
+      "roles/monitoring.admin",
+    ],
+  }
+
+  // A list of items like:
+  // { module_name = "x", role = "role1"}
+  // { module_name = "x", role = "role2"}
+  // { module_name = "y", role = "role3"}
+  module_role_combinations = flatten(
+    [for module_name, _ in module.project :
+      [for role in setunion(local.per_module_roles[module_name], lookup(local.extra_roles_for_tests, module_name, [])) : {
+        module_name = module_name
+        role        = role
+        }
+      ]
+    ]
+  )
 }
 
 resource "google_service_account" "int_test" {
-  project      = module.project.project_id
+  for_each = module.project
+
+  project      = each.value.project_id
   account_id   = "ci-account"
   display_name = "ci-account"
 }
 
 resource "google_project_iam_member" "int_test" {
-  count = length(local.int_required_roles)
+  for_each = {
+    for combination in local.module_role_combinations :
+    "${combination.module_name}.${combination.role}" => {
+      service_account = google_service_account.int_test[combination.module_name]
+      role            = combination.role
+    }
+  }
 
-  project = module.project.project_id
-  role    = local.int_required_roles[count.index]
-  member  = "serviceAccount:${google_service_account.int_test.email}"
+  project = each.value.service_account.project
+  role    = each.value.role
+  member  = "serviceAccount:${each.value.service_account.email}"
 }
 
 resource "google_service_account_key" "int_test" {
-  service_account_id = google_service_account.int_test.id
+  for_each = module.project
+
+  service_account_id = google_service_account.int_test[each.key].id
 }
+
