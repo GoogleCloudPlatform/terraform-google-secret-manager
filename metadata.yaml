@@ -24,7 +24,7 @@ spec:
     source:
       repo: https://github.com/GoogleCloudPlatform/terraform-google-secret-manager.git
       sourceType: git
-    version: 0.8.0
+    version: 0.9.0
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
@@ -36,6 +36,8 @@ spec:
     examples:
       - name: kms
         location: examples/kms
+      - name: monitoring-alert
+        location: examples/monitoring-alert
       - name: multiple
         location: examples/multiple
       - name: pubsub
@@ -97,15 +99,11 @@ spec:
       - level: Project
         roles:
           - roles/secretmanager.admin
-          - roles/cloudkms.admin
-          - roles/pubsub.admin
+          - roles/iam.serviceAccountUser
+          - roles/logging.logWriter
     services:
-      - cloudresourcemanager.googleapis.com
-      - storage-api.googleapis.com
-      - serviceusage.googleapis.com
+      - iam.googleapis.com
       - secretmanager.googleapis.com
-      - pubsub.googleapis.com
-      - cloudkms.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 4.83.0, < 7"

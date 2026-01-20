@@ -19,15 +19,15 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = ">= 4.83.0, < 7"
+      version = ">= 4.83.0, < 8"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = ">= 4.83.0, < 7"
+      version = ">= 4.83.0, < 8"
     }
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-secret-manager:simple-secret/v0.8.0"
+    module_name = "blueprints/terraform/terraform-google-secret-manager:simple-secret/v0.9.0"
   }
 }
