@@ -72,3 +72,9 @@ variable "secret_accessors_list" {
   description = "The list of the members to allow accessing secrets"
   default     = []
 }
+
+variable "version_destroy_ttl" {
+  type        = string
+  description = "Secret Version TTL after destruction request. For secret with versionDestroyTtl>0, version destruction doesn't happen immediately on calling destroy instead the version goes to a disabled state and the actual destruction happens after this TTL expires."
+  default     = null
+}
