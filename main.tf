@@ -70,7 +70,7 @@ resource "google_secret_manager_secret" "secrets" {
       }
     }
   }
-  labels = lookup(var.labels, each.key, null)
+  labels = coalesce(lookup(each.value, "labels", null), lookup(var.labels, each.key, null))
   dynamic "topics" {
     for_each = lookup(var.topics, each.key, [])
     content {
@@ -103,4 +103,23 @@ resource "google_secret_manager_secret_iam_binding" "binding" {
   secret_id = google_secret_manager_secret.secrets[each.value.name].id
   role      = "roles/secretmanager.secretAccessor"
   members   = var.secret_accessors_list
+}
+
+resource "google_secret_manager_secret_iam_binding" "per_secret_binding" {
+  for_each = {
+    for binding in flatten([
+      for secret in var.secrets : [
+        for iam_binding in coalesce(secret.iam_bindings, []) : {
+          key       = "${secret.name}-${iam_binding.role}"
+          secret_id = secret.name
+          role      = iam_binding.role
+          members   = iam_binding.members
+        }
+      ]
+    ]) : binding.key => binding
+  }
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.secrets[each.value.secret_id].id
+  role      = each.value.role
+  members   = each.value.members
 }
