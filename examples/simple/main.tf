@@ -17,7 +17,7 @@
 
 module "secret" {
   source  = "GoogleCloudPlatform/secret-manager/google//modules/simple-secret"
-  version = "~> 0.5"
+  version = "~> 0.9"
 
   project_id  = var.project_id
   name        = "secret-1"
