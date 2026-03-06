@@ -25,7 +25,12 @@ variable "secrets" {
     secret_data : optional(string),
     next_rotation_time : optional(string),
     rotation_period : optional(string),
-    create_version : optional(bool, true)
+    create_version : optional(bool, true),
+    labels : optional(map(string)),
+    iam_bindings : optional(list(object({
+      role    = string,
+      members = list(string)
+    })))
   }))
   description = "The list of the secrets"
   default     = []
