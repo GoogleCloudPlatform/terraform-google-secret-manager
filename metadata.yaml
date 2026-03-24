@@ -58,7 +58,12 @@ spec:
               secret_data : optional(string),
               next_rotation_time : optional(string),
               rotation_period : optional(string),
-              create_version : optional(bool, true)
+              create_version : optional(bool, true),
+              labels : optional(map(string)),
+              iam_bindings : optional(list(object({
+                role    = string,
+                members = list(string)
+              })))
             }))
         defaultValue: []
       - name: user_managed_replication
@@ -89,6 +94,10 @@ spec:
         description: The list of the members to allow accessing secrets
         varType: list(string)
         defaultValue: []
+      - name: version_destroy_ttl
+        description: Secret Version TTL after destruction request. For secret with versionDestroyTtl>0, version destruction doesn't happen immediately on calling destroy instead the version goes to a disabled state and the actual destruction happens after this TTL expires.
+        varType: string
+        defaultValue: null
     outputs:
       - name: secret_names
         description: The name list of Secrets
