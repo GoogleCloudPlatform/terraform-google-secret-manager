@@ -38,7 +38,7 @@ resource "google_pubsub_topic_iam_member" "sm_sa_publisher" {
 
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.5"
+  version = "~> 0.9"
 
   project_id = var.project_id
   secrets = [
