@@ -74,6 +74,7 @@ spec:
               rotation_period    = string # The Duration between rotation notifications, in seconds.
               next_rotation_time = string # The time at which the Secret Manager secret is scheduled for rotation, in RFC3339 format. Examples: '2014-10-02T15:01:23Z' and '2014-10-02T15:01:23.045123456Z'
             })
+        defaultValue: null
       - name: user_managed_replication
         description: |
           Replication parameters that will be used for the defined secret.
