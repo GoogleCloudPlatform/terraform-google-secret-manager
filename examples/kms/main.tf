@@ -52,7 +52,7 @@ resource "google_kms_crypto_key_iam_member" "sm_sa_encrypter_decrypter" {
 
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.5"
+  version = "~> 0.9"
 
   project_id = var.project_id
   secrets = [

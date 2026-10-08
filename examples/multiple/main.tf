@@ -63,7 +63,7 @@ resource "google_pubsub_topic" "secret_topic_2" {
 
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.5"
+  version = "~> 0.9"
 
   project_id = var.project_id
   secrets = [
